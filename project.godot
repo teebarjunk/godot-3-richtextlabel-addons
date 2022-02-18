@@ -1,0 +1,74 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "DialogueResource",
+"language": "GDScript",
+"path": "res://addons/dialogue_manager/dialogue_resource.gd"
+}, {
+"base": "Resource",
+"class": "EvalHelper",
+"language": "GDScript",
+"path": "res://addons/EvalHelper.gd"
+}, {
+"base": "Resource",
+"class": "FontHelper",
+"language": "GDScript",
+"path": "res://addons/rich_text/FontHelper.gd"
+}, {
+"base": "RichTextLabel",
+"class": "RichTextLabel2",
+"language": "GDScript",
+"path": "res://addons/rich_text/RichTextLabel2.gd"
+}, {
+"base": "RichTextLabel2",
+"class": "RichTextLabelAnimated",
+"language": "GDScript",
+"path": "res://addons/rich_text/RichTextLabelAnimated.gd"
+}, {
+"base": "RichTextLabel2",
+"class": "RichTextTable",
+"language": "GDScript",
+"path": "res://addons/rich_text/RichTextTable.gd"
+} ]
+_global_script_class_icons={
+"DialogueResource": "",
+"EvalHelper": "",
+"FontHelper": "",
+"RichTextLabel2": "",
+"RichTextLabelAnimated": "",
+"RichTextTable": ""
+}
+
+[application]
+
+config/name="story"
+config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://addons/Global.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg", "res://addons/rich_text/plugin.cfg", "res://addons/tool_button/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

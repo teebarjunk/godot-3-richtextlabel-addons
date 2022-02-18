@@ -1,0 +1,140 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://fonts/robotomono/robotomono-b.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/robotomono/robotomono-i.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://fonts/unifont/unifont_upper-13.0.01.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/robotomono/robotomono-bi.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/robotomono/robotomono-r.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://fonts/unifont/unifont-13.0.01.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://addons/rich_text/text_transitions/RTE_console.gd" type="Script" id=8]
+[ext_resource path="res://addons/rich_text/RichTextLabelAnimated.gd" type="Script" id=9]
+[ext_resource path="res://addons/rich_text/RichTextTable.gd" type="Script" id=10]
+
+[sub_resource type="DynamicFont" id=10]
+use_filter = true
+font_data = ExtResource( 6 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=11]
+use_filter = true
+font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=12]
+use_filter = true
+font_data = ExtResource( 3 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=13]
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="RichTextEffect" id=14]
+resource_local_to_scene = true
+resource_name = "console"
+script = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=6]
+use_filter = true
+font_data = ExtResource( 6 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
+use_filter = true
+font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=8]
+use_filter = true
+font_data = ExtResource( 3 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 7 )
+fallback/1 = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 659.0
+margin_bottom = 418.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationExample" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 659.0
+margin_bottom = 207.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabelAnimated" type="RichTextLabel" parent="VBoxContainer/AnimationExample"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 652.0
+margin_bottom = 200.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/mono_font = SubResource( 10 )
+custom_fonts/bold_italics_font = SubResource( 11 )
+custom_fonts/italics_font = SubResource( 12 )
+custom_fonts/bold_font = SubResource( 13 )
+custom_fonts/normal_font = SubResource( 10 )
+bbcode_enabled = true
+text = "Okay “where” did you get “the idea about” all that stuff from? Because it can't have been from me, as I was already in the wall."
+custom_effects = [ SubResource( 14 ) ]
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+font = "robotomono"
+bbcode2 = "Okay \"where\" did you get \"[!score = 10]the idea about\" all that stuff from? [tomato]Because [tri2]it can't[/] have been from me, as I was already in the wall."
+animation = "console"
+percent = 1.0
+fade_speed = 2.0
+play_speed = 20.0
+
+[node name="TableExample" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 211.0
+margin_right = 659.0
+margin_bottom = 418.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextTable" type="RichTextLabel" parent="VBoxContainer/TableExample"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 652.0
+margin_bottom = 200.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_constants/table_hseparation = 107
+custom_fonts/mono_font = SubResource( 6 )
+custom_fonts/bold_italics_font = SubResource( 7 )
+custom_fonts/italics_font = SubResource( 8 )
+custom_fonts/bold_font = SubResource( 9 )
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+text = "NameCostStrDefSword1041Axe1561Mace550"
+script = ExtResource( 10 )
+color = Color( 0.313726, 0.588235, 0.709804, 1 )
+font = "robotomono"
+bbcode2 = "Name|:Cost|[cap]STR[]|[cap]DEF[]
+Sword|10|4|1
+Axe|15|6|1
+Mace|5|5|0"
+sortable = true
