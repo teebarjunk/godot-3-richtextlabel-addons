@@ -1,25 +1,26 @@
-# RichText Addons
+# RichText Addons - BBCode Evolved!
 
-`v1.0`
+`v1.1`
 
 Adds *3* new classes for *RichTextLabel*:
 
-- RichText2: The base class.
-- RichTextAnimation: For text that animates in and out.
-- RichTextTable: Table with sortable columns.
+- *RichTextLabel2* - The base class.
+- *RichTextLabelAnimation* - For text that animates in and out.
+- *RichTextTable* - Table with sortable columns.
 
-# RichText2 - BBCode Evolved
+# RichTextLabel2
 - Input a `font` name and `size`, and it will auto create and apply *DynamicFonts*. (Font's should be in a `res://fonts/` folder.)
 - Close any tag with a simple `[]`. Close all open tags with `[/]`.
 - Put multiple tags inside a single bracket, using `;` to seperate: `[b;red]Bold Red Text.[]`
 - Use any `ColorN` name as a tag. `[aquamarine]My Aquamarine text[] and my [coral]Coral text[].`
-- Comma seperated color tag allowed: `[1,0,0,1]Red text[]`. Use with Godot string formatting: `"[%s]This text is red[]" % Color.tomato`
+- Comma seperated color tag allowed: `[1,0,0,1]Red text[]`. Useful with Godot string formatting: `"[%s]This text is red[]" % Color.tomato`
 - Markdown:
     - `*italic*` = `[i]italic[]`
     - `**bold**` = `[b]bold[]`
     - `***bold italic***` = `[bi]bold italic[]`
     - `~~strike through~~` = `[s]strike through[]`
-- Evaluate's text between `{}`: `Final score for **{player_name}**: [yellow;i]{score + bonus_points * 2}[].`
+- `[if] [elif] [else] [endif]` tags: `[if not name]Hello, stranger.[elif is_enemy()]Get lost.[else]Hello, friend.[endif]`
+- `[$]` expression tag. Can include styling. Self closing.: `Final score for [$player_name;b;green]: [$commas(score+bonus_points*2000);yellow;i].`
 - Auto open/close quotations: `"My quote."` becomes `“My quote.”`
 - 11 animations: (Automatically *installed* on use.)
     - `[cuss]` for swear words.
@@ -38,17 +39,17 @@ Adds *3* new classes for *RichTextLabel*:
     - `[lit]` `[lit2]` `[lit3]` Lightens by 33%, 50%, 66%.
     - `[opp]` `[tri1]` `[tri2]` Complimentary colors, to whatever is being used.
     - `[hide]` Make text transparent. Good for spacing.
-    - `[emoj=icon.png]` Shows the image scaled to the font size.
+    - `[$icon]` Inserts an image scaled to the font size.
     - `[cap]` Capitalize all words.
     - `[upper]` Uppercase all letters.
     - `[lower]` Lowercase all letters.
 
-# RichTextAnimation
+# RichTextLabelAnimation
 - New tags:
     - `[w]` or `[wait]` (self closing) Wait 1.0 second. `[wait=2]` will wait 2 seconds.
     - `[h]` or `[hold]` (self closing) Pause animation until `play()` is called again.
     - `[p]` or `[pace=n]` Set animation speed scale. 1 = default.
-    - `[!]` Command tag. Will emit_signal `command` with whatever follows `!`: `Wait a minute[!play_animation('shock')], you can't say that!`
+    - `[!]` Command tag. Will emit_signal `command` with whatever follows `!`: `Wait a minute[!play_animation("shock")], you can't say that!`
 - 7 animations:
     - `[back]` Bounce into place.
     - `[console]` Typed out like a computer console.
@@ -70,3 +71,11 @@ Adds *3* new classes for *RichTextLabel*:
 - Sortable columns.
 
     ![](README/table.png)
+
+
+# Changes
+## 1.1
+- Added `[if][elif][else][endif]` tags for including logic.
+- Added `[$]` expression tag.
+- Added `[hue=n][sat=n][val=n]` tags for tweaking colors.
+- Changed emoji tag: `[em=icon]`. (Assumes file format.)

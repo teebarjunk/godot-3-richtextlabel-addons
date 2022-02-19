@@ -34,7 +34,7 @@ font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 7 )
 fallback/1 = ExtResource( 4 )
 
-[sub_resource type="RichTextEffect" id=10]
+[sub_resource type="RichTextEffect" id=5]
 resource_local_to_scene = true
 resource_name = "console"
 script = ExtResource( 8 )
@@ -93,18 +93,19 @@ custom_fonts/italics_font = SubResource( 3 )
 custom_fonts/bold_font = SubResource( 4 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-custom_effects = [ SubResource( 10 ) ]
+text = "Sed my RichTextLabelAnimated 10,002 ut ass perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+custom_effects = [ SubResource( 5 ) ]
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+color = Color( 0.623529, 0.517647, 0.290196, 1 )
 font = "robotomono"
-bbcode2 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+bbcode2 = "Sed my [$name;b;hue=20] [$commas(score_test*2+10000);bi;tomato] ut [if score_test > 10]OKAY![elif score_test == 3]Who cares?[else]ass[endif] perspiciatis unde omnis [sat=10]iste natus[sat=10] error sit[sat=10;hue=-66] voluptatem accusantium[sat=10;hue=180] doloremque laudantium[sat=10], totam rem[sat=10] aperiam, eaque[sat=10] ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+score_test = 1
 animation = "console"
 percent = 1.0
-fade_speed = 2.0
-play_speed = 20.0
+play_speed = 120.0
 
 [node name="TableExample" type="PanelContainer" parent="VBoxContainer"]
 margin_top = 211.0

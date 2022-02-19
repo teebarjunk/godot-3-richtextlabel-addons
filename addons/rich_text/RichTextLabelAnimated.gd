@@ -19,6 +19,8 @@ signal wait_ended()				# wait timer ended.
 signal quote_started()			# "quote" starts.
 signal quote_ended()			# "quote" ends.
 
+export var score_test = 0
+
 export(String, ",back,console,fader,focus,prickle,redact,wfc") var animation := "fader" setget set_animation
 export(float, 0.0, 1.0) var percent := 0.0 setget set_percent
 export var fade_speed := 10.0
@@ -148,6 +150,36 @@ func _effect_postpass():
 	# remove the effect tag.
 	if _installed_effect:
 		pop()
+
+func _preprocess(bbcode:String):
+	
+	bbcode = replace_between(bbcode, "[if ", "[endif]", funcref(self, "_replace_ifs"))
+	
+	return ._preprocess(bbcode)
+
+# [if name == "Paul"]Hey Paul.[elif name != ""]Hey friend.[else]Who are you?[endif]
+func _get_if_chain(s:String) -> Array:
+	var p := s.split("]", true, 1)
+	var elifs := [Array(p)]
+	
+	while "[elif " in elifs[-1][-1]:
+		p = elifs[-1][-1].split("[elif ", true, 1)
+		elifs[-1][-1] = p[0]
+		p = p[1].split("]", true, 1)
+		elifs.append(Array(p))
+	
+	if "[else]" in elifs[-1][-1]:
+		p = elifs[-1][-1].split("[else]", true, 1)
+		elifs[-1][-1] = p[0]
+		elifs.append(["true", p[1]])
+	
+	return elifs
+	
+func _replace_ifs(s:String):
+	for test in _get_if_chain(s):
+		if _execute_expression(test[0]):
+			return test[1]
+	return ""
 
 func _process(delta):
 	

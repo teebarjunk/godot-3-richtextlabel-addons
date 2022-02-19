@@ -110,7 +110,7 @@ Features:
 		- [tri1] On the color wheel, left triangle color.
 		- [tri2] On the color wheel, right triangle color.
 		- [hide] Make text transparent.
-		- [emoj=icon.png] Emoji: An image scaled to the font size.
+		- [em=icon] Emoji: An image scaled to the font size.
 		- [cap] Capitalize all letters.
 		- [upper] Uppercase all letters.
 		- [lower] Lowercase all letters.
@@ -182,13 +182,13 @@ func _effect_postpass(): pass
 
 func _preprocess(bbcode:String):
 	
-	if context_enabled:
-		if not context:
-			context = get_node(_context)
-		
-		if context:
-			bbcode = replace_between(bbcode, CONTEXT_OPENED, CONTEXT_CLOSED, funcref(self, "_replace_context"))
-	
+#	if context_enabled:
+#		if not context:
+#			context = get_node(_context)
+#
+#		if context:
+#			bbcode = replace_between(bbcode, CONTEXT_OPENED, CONTEXT_CLOSED, funcref(self, "_replace_context"))
+#
 	if nicer_quotes_enabled:
 		bbcode = replace_between(bbcode, '"', '"', funcref(self, "_replace_quotes"))
 	
@@ -209,13 +209,25 @@ func _replace_md_b(t:String): return markdown_b % t
 func _replace_md_i(t:String): return markdown_i % t
 func _replace_md_s(t:String): return markdown_s % t
 
-func _replace_context(t:String):
-	var expression := Expression.new()
-	if expression.parse(t) == OK:
-		var result = expression.execute([], context)
-		if not expression.has_execute_failed():
-			return str(result)
-	return "{%s}" % t
+const EXPRESSION_FAILED:String = "%EXPRESSION_FAILED%"
+func _execute_expression(e:String, default=EXPRESSION_FAILED):
+	if context_enabled:
+		if not context:
+			context = get_node(_context)
+		if context:
+			var expression := Expression.new()
+			if expression.parse(e) == OK:
+				var result = expression.execute([], context)
+				if not expression.has_execute_failed():
+					return result
+	return default
+
+#func _replace_context(t:String):
+#	var got = _execute_expression(t)
+#	return got if got != EXPRESSION_FAILED else "{%s}" % t
+#	if got != EXPRESSION_FAILED:
+#		return str(got)
+#	return "{%s}" % t
 
 func add_text(text:String):
 	if _flag_cap:
@@ -346,7 +358,7 @@ func _custom_tag_closed(tag:String):
 		"upper": _flag_upper = false
 		"lower": _flag_lower = false
 
-func _find_font(id:String):
+func _find_font(id:String) -> DynamicFont:
 	var p = id.substr(1).split(" ", true, 1)
 	id = p[0]
 	var df = DynamicFont.new()
@@ -354,12 +366,19 @@ func _find_font(id:String):
 	df.size = get_font("normal_font").get_height()
 	return df
 
+func _find_asset(id:String, extensions:Array, default=null):
+	var f := File.new()
+	for ext in extensions:
+		var p = id + ext
+		if f.file_exists(p):
+			return load(p)
+	return default
+
 # an image adjusted to be the same size as the current font.
 func _add_emoj(info:String):
-	var dict:Dictionary = info_to_dict(info)
-	var image:Texture = load(dict.emoj)
-	var isize:Vector2 = image.get_size()
-	var font = get_font("normal_font")
+	var image:Texture = _find_asset(info, [".png", ".jpg", ".webp", ".bmp"])
+	var isize := image.get_size()
+	var font := get_font("normal_font")
 	var size
 	if "size" in font:
 		size = font.size
@@ -378,6 +397,19 @@ func _add_image(info:String):
 	add_image(image, w, h)
 
 func _apply_tags(tags:String, state:Dictionary) -> Array:
+	# special expression tag
+	if tags.begins_with("$"):
+		tags = tags.substr(1)
+		var ev_opened:Array
+		if ";" in tags:
+			var p := tags.split(";", true, 1)
+			tags = p[0]
+			ev_opened = _apply_tags(p[1], state)
+		add_text(str(_execute_expression(tags)))
+		if ev_opened:
+			_pop([ev_opened], state)
+		return []
+	
 	var opened:Array = []
 	
 	for tag in tags.split(";"):
@@ -462,9 +494,6 @@ func _apply_tag(tag:String, state:Dictionary, opened:Array):
 		"img":
 			_add_image(tag_info)
 		
-		"emoj":
-			_add_emoj(tag_info)
-		
 		"cap":
 			opened.append("cap")
 			_flag_cap = true
@@ -502,6 +531,27 @@ func _apply_tag(tag:String, state:Dictionary, opened:Array):
 			_on_cell(opened, state)
 			
 		# Custom Effects
+		
+		"hue":
+			opened.append(state.color)
+			var h = _info_to_float(tag_info, 180.0) / 360.0
+			state.color.h = wrapf(state.color.h + h, 0.0, 1.0)
+			push_color(state.color)
+		
+		"sat":
+			opened.append(state.color)
+			var s = _info_to_float(tag_info, 50.0) / 100.0
+			state.color.s = clamp(state.color.s + s, 0.0, 1.0)
+			push_color(state.color)
+		
+		"val":
+			opened.append(state.color)
+			var v = _info_to_float(tag_info, 50.0) / 100.0
+			state.color.v = clamp(state.color.v + v, 0.0, 1.0)
+			push_color(state.color)
+		
+		"em":
+			_add_emoj(tag.substr(3))
 		
 		# dim by 33% 50% 66%
 		"dim", "dim2", "dim3":
@@ -550,6 +600,13 @@ func _apply_tag(tag:String, state:Dictionary, opened:Array):
 				
 				elif auto_close == false:
 					opened.append(tag_name)
+
+func _info_to_float(info:String, default:float=0.0):
+	if "=" in info:
+		var p = info.split("=", true, 1)
+		if len(p) == 2:
+			return float(p[1])
+	return default
 
 func _on_cell(opened:Array, state:Dictionary):
 	state.table_cells += 1
