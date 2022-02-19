@@ -10,31 +10,31 @@
 [ext_resource path="res://addons/rich_text/RichTextLabelAnimated.gd" type="Script" id=9]
 [ext_resource path="res://addons/rich_text/RichTextTable.gd" type="Script" id=10]
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=1]
 use_filter = true
 font_data = ExtResource( 6 )
 fallback/0 = ExtResource( 7 )
 fallback/1 = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=2]
 use_filter = true
 font_data = ExtResource( 5 )
 fallback/0 = ExtResource( 7 )
 fallback/1 = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=3]
 use_filter = true
 font_data = ExtResource( 3 )
 fallback/0 = ExtResource( 7 )
 fallback/1 = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=4]
 use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 7 )
 fallback/1 = ExtResource( 4 )
 
-[sub_resource type="RichTextEffect" id=14]
+[sub_resource type="RichTextEffect" id=10]
 resource_local_to_scene = true
 resource_name = "console"
 script = ExtResource( 8 )
@@ -87,20 +87,20 @@ margin_top = 7.0
 margin_right = 652.0
 margin_bottom = 200.0
 custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/mono_font = SubResource( 10 )
-custom_fonts/bold_italics_font = SubResource( 11 )
-custom_fonts/italics_font = SubResource( 12 )
-custom_fonts/bold_font = SubResource( 13 )
-custom_fonts/normal_font = SubResource( 10 )
+custom_fonts/mono_font = SubResource( 1 )
+custom_fonts/bold_italics_font = SubResource( 2 )
+custom_fonts/italics_font = SubResource( 3 )
+custom_fonts/bold_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-text = "Okay “where” did you get “the idea about” all that stuff from? Because it can't have been from me, as I was already in the wall."
-custom_effects = [ SubResource( 14 ) ]
+text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+custom_effects = [ SubResource( 10 ) ]
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 font = "robotomono"
-bbcode2 = "Okay \"where\" did you get \"[!score = 10]the idea about\" all that stuff from? [tomato]Because [tri2]it can't[/] have been from me, as I was already in the wall."
+bbcode2 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
 animation = "console"
 percent = 1.0
 fade_speed = 2.0
