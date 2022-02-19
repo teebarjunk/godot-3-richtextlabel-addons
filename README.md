@@ -35,8 +35,9 @@ Adds *3* new classes for *RichTextLabel*:
     - `[uwu]` for jueveniles.
     - `[woo]` for the immature.
 - New tags:
-    - `[dim]` `[dim2]` `[dim3]` Darkens by 33%, 50%, 66%.
-    - `[lit]` `[lit2]` `[lit3]` Lightens by 33%, 50%, 66%.
+    - `[dim] [dim2] [dim3]` Darkens by 33%, 50%, 66%.
+    - `[lit] [lit2] [lit3]` Lightens by 33%, 50%, 66%.
+    - `[hue=n] [val=n] [sat=n]` For adjusting hue (0-360), saturation (0-100), value (0-100). Can be negative.
     - `[hide]` Make text transparent. Good for spacing.
     - `[em=icon]` *(self closing)* Inserts an image scaled to the font size.
     - `[cap]` Capitalize all words.
@@ -44,6 +45,12 @@ Adds *3* new classes for *RichTextLabel*:
     - `[lower]` Lowercase all letters.
 
 # RichTextLabelAnimation
+
+
+
+https://user-images.githubusercontent.com/18387401/154820279-8c5b6492-62d3-439d-b4db-f2adfe989142.mp4
+
+
 `Let me repeat... [w;skip]don't[] [w;skip;jit]ever[] [w;skip;jit2;tomato;lit]EVER[] [w;skip;jit]say[] [w=1.5;skip;jit=2]that![][w=2] [jit=4 scale=1.5;tomato;sparkle]Got it??[]`
 
 - New tags:
