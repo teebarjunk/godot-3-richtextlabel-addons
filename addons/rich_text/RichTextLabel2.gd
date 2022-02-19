@@ -106,9 +106,6 @@ Features:
 	- Tags:
 		- [dim] Darkens by 33%.
 		- [lit] Lightens by 33%
-		- [opp] Opposite of whatever color is being used.
-		- [tri1] On the color wheel, left triangle color.
-		- [tri2] On the color wheel, right triangle color.
 		- [hide] Make text transparent.
 		- [em=icon] Emoji: An image scaled to the font size.
 		- [cap] Capitalize all letters.
@@ -566,23 +563,23 @@ func _apply_tag(tag:String, state:Dictionary, opened:Array):
 			push_color(state.color)
 		
 		# opposite color
-		"opp":
-			var c = state.color
-			opened.append(state.color)
-			state.color = c.from_hsv(wrapf(c.h + .5, 0.0, 1.0), c.s, c.v)
-			push_color(state.color)
-		
-		"tri1":
-			var c = state.color
-			opened.append(state.color)
-			state.color = c.from_hsv(wrapf(c.h - .3333, 0.0, 1.0), c.s, c.v)
-			push_color(state.color)
-		
-		"tri2":
-			var c = state.color
-			opened.append(state.color)
-			state.color = c.from_hsv(wrapf(c.h + .3333, 0.0, 1.0), c.s, c.v)
-			push_color(state.color)
+#		"opp":
+#			var c = state.color
+#			opened.append(state.color)
+#			state.color = c.from_hsv(wrapf(c.h + .5, 0.0, 1.0), c.s, c.v)
+#			push_color(state.color)
+#
+#		"tri1":
+#			var c = state.color
+#			opened.append(state.color)
+#			state.color = c.from_hsv(wrapf(c.h - .3333, 0.0, 1.0), c.s, c.v)
+#			push_color(state.color)
+#
+#		"tri2":
+#			var c = state.color
+#			opened.append(state.color)
+#			state.color = c.from_hsv(wrapf(c.h + .3333, 0.0, 1.0), c.s, c.v)
+#			push_color(state.color)
 		
 		_:
 			# install effect if it exists

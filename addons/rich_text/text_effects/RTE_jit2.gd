@@ -11,7 +11,7 @@ func _process_custom_fx(c:CharFXTransform):
 	
 	var t = c.elapsed_time
 	var s = fmod((c.relative_index + t) * PI * 1.25, TAU)
-	var p = sin(t * freq) * .33
+	var p = sin(t * freq + c.absolute_index) * .33
 	c.offset.x += sin(s) * p * scale
 	c.offset.y += cos(s) * p * scale
 

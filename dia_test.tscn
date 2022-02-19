@@ -1,0 +1,84 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://DialogueText.gd" type="Script" id=1]
+[ext_resource path="res://addons/rich_text/text_effects/RTE_jit.gd" type="Script" id=2]
+[ext_resource path="res://addons/rich_text/text_transitions/RTE_fader.gd" type="Script" id=3]
+[ext_resource path="res://fonts/unifont/unifont_upper-13.0.01.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/robotomono/robotomono-b.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/unifont/unifont-13.0.01.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://fonts/robotomono/robotomono-r.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://fonts/robotomono/robotomono-bi.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://fonts/robotomono/robotomono-i.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://addons/rich_text/text_effects/RTE_jit2.gd" type="Script" id=10]
+[ext_resource path="res://addons/rich_text/text_effects/RTE_sparkle.gd" type="Script" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 7 )
+fallback/0 = ExtResource( 6 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 8 )
+fallback/0 = ExtResource( 6 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 9 )
+fallback/0 = ExtResource( 6 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+use_filter = true
+font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 6 )
+fallback/1 = ExtResource( 4 )
+
+[sub_resource type="RichTextEffect" id=5]
+resource_local_to_scene = true
+resource_name = "fader"
+script = ExtResource( 3 )
+
+[sub_resource type="RichTextEffect" id=6]
+resource_local_to_scene = true
+resource_name = "jit"
+script = ExtResource( 2 )
+
+[sub_resource type="RichTextEffect" id=7]
+resource_local_to_scene = true
+resource_name = "jit2"
+script = ExtResource( 10 )
+
+[sub_resource type="RichTextEffect" id=8]
+resource_local_to_scene = true
+resource_name = "sparkle"
+script = ExtResource( 11 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+margin_left = 229.0
+margin_top = 95.0
+margin_right = 782.0
+margin_bottom = 373.0
+custom_fonts/mono_font = SubResource( 1 )
+custom_fonts/bold_italics_font = SubResource( 2 )
+custom_fonts/italics_font = SubResource( 3 )
+custom_fonts/bold_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+text = "Let me repeat... don't ever EVER say that! Got it??"
+custom_effects = [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+font = "robotomono"
+nicer_quotes_enabled = false
+bbcode2 = "Let me repeat... [w;skip]don't[] [w;skip;jit]ever[] [w;skip;jit2;tomato;lit]EVER[] [w;skip;jit]say[] [w=1.5;skip;jit=2]that![][w=2] [jit=4 scale=1.5;tomato;sparkle]Got it??[]"
+percent = 1.0
+play_speed = 10.0
+file = false
+show = "this_is_a_node_title"

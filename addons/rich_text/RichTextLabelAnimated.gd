@@ -40,6 +40,7 @@ var _installed_effect := false
 var _alpha := PoolRealArray()
 var _alpha_goal := PoolRealArray()
 var _triggers := {}
+var _skipping := false
 
 func is_finished() -> bool:
 	return percent >= 1.0
@@ -63,11 +64,15 @@ func set_animation(s):
 	animation = s
 	redraw()
 
-func advance():
+func advance() -> bool:
 	if not play:
 		play = true
+		return false
 	elif not is_finished():
 		set_percent(1.0)
+		return false
+	else:
+		return true
 
 func set_percent(p:float):
 	var last_percent := percent
@@ -200,11 +205,15 @@ func _process(delta):
 				_alpha[i] = min(_alpha_goal[i], _alpha[i] + delta * fade_speed)
 		
 		if wait > 0.0:
-			wait -= delta
+			wait = max(0.0, wait - delta)
 		
-		elif play and percent < 1.0:
-			var t = (1.0 / float(get_total_character_count())) * play_speed
-			self.percent += delta * t * pace
+		elif play and percent < 1.0 and len(_alpha):
+			if _skipping:
+				while _skipping:
+					self.percent += 1.0 / float(len(_alpha))
+			else:
+				var t = (1.0 / float(len(_alpha)))
+				self.percent += delta * t * play_speed * pace
 
 func _make_custom_tooltip(_for_text):
 	pass
@@ -238,6 +247,10 @@ func _custom_tag(tag:String, info:Dictionary) -> bool:
 		"q", "quote":
 			_register_trigger("quote", info, tag)
 			return false
+		
+		"skip":
+			_register_trigger("skip", info, tag)
+			return false
 	
 	return ._custom_tag(tag, info)
 
@@ -247,6 +260,7 @@ func _custom_tag_closed(tag:String):
 		"h", "hold": pass
 		"p", "pace": _register_trigger("pace", {pace=1}, tag)
 		"q", "quote": _register_trigger("end_quote")
+		"skip": _register_trigger("end_skip")
 		_: _custom_tag_closed(tag)
 
 func _register_trigger(id:String, info={}, tag:String=""):
@@ -278,3 +292,9 @@ func _trigger_quote(_info, _tag):
 func _trigger_end_quote(_info, _tag):
 	print("quote ended")
 	emit_signal("quote_ended")
+
+func _trigger_skip(_info, _tag):
+	_skipping = true
+
+func _trigger_end_skip(_info, _tag):
+	_skipping = false
