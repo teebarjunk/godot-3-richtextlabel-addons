@@ -39,7 +39,7 @@ Adds *3* new classes for *RichTextLabel*:
     - `[lit]` `[lit2]` `[lit3]` Lightens by 33%, 50%, 66%.
     - `[opp]` `[tri1]` `[tri2]` Complimentary colors, to whatever is being used.
     - `[hide]` Make text transparent. Good for spacing.
-    - `[$icon]` Inserts an image scaled to the font size.
+    - `[em=icon]` Inserts an image scaled to the font size.
     - `[cap]` Capitalize all words.
     - `[upper]` Uppercase all letters.
     - `[lower]` Lowercase all letters.
